@@ -3,23 +3,15 @@
     {
       "git": {
         "name": ".",
-        "remote": "https://github.com/googleapis/nodejs-datastore.git",
-        "sha": "d90b7331a96a2cca5f8bc51281b4e22648b40007"
-      }
-    },
-    {
-      "git": {
-        "name": "googleapis",
-        "remote": "https://github.com/googleapis/googleapis.git",
-        "sha": "a3a0bf0f6291d69f2ff3df7fcd63d28ee20ac727",
-        "internalRef": "310060413"
+        "remote": "git@github.com:googleapis/nodejs-datastore.git",
+        "sha": "18c6c1f290acc64b635a8e9316e7ed56e1c87ca6"
       }
     },
     {
       "git": {
         "name": "synthtool",
         "remote": "https://github.com/googleapis/synthtool.git",
-        "sha": "1c92077459db3dc50741e878f98b08c6261181e0"
+        "sha": "a0ee80e0492a03b9b2bfefb5cca7eaf17bf10438"
       }
     }
   ],
