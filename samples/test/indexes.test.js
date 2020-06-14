@@ -24,5 +24,9 @@ describe('indexes', () => {
   it('should run index describe sample', () => {
     const output = exec('node indexes.js');
     assert.include(output, 'ALL_ANCESTORS');
+    assert.include(output, 'properties');
+    assert.include(output, 'indexId');
+    assert.include(output, 'name');
+    assert.include(output, 'direction');
   });
 });

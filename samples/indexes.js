@@ -20,8 +20,21 @@
 //  usage: node indexes.js
 
 const {Datastore} = require('@google-cloud/datastore');
+const {inspect} = require('util');
 
 // [START indexes]
+
+// NOTE: ensure the sample indexes have been created defined at samples/index.yaml
+// use the following command do to so, until native `createIndex` is supported
+// within this client:
+// ```shell
+//   gcloud datastore indexes create samples/index.yaml
+// ```
+
+function dump(object) {
+  return inspect(object, {compact: false, depth: null});
+}
+
 function main() {
   // Creates a client
   const datastore = new Datastore();
@@ -29,20 +42,23 @@ function main() {
   async function describeIndexes() {
     // `indexes` is a list of Index objects
     const [{indexes}] = await datastore.listIndexes();
-    console.log(`Found all indexes in the datastore: ${indexes}`);
+    console.log('Found all indexes in the datastore:\n', dump(indexes));
 
     // now let's use the first index's ID to retrieve it again
     // this illustrates the second way to to retrieve the same
     // information for an index, if the index is known by ID
     const firstIndex = indexes[0];
-    console.log(`Found at least one index, the first one is ${firstIndex}`);
+    console.log('Found at least one index, the first one:\n', dump(firstIndex));
 
     const indexId = firstIndex.indexId;
 
     // we have a known index ID, let's look it up
     // `index` is a single Index object
     const [index] = await datastore.getIndex(indexId);
-    console.log(`Found a specific index using its unique identifier: ${index}`);
+    console.log(
+      'Found a specific index using its unique identifier:\n',
+      dump(index)
+    );
   }
 
   describeIndexes().catch(console.error);
