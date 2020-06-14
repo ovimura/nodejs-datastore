@@ -17,7 +17,7 @@ import {readFileSync} from 'fs';
 import * as path from 'path';
 import {before, after, describe, it} from 'mocha';
 import * as yaml from 'js-yaml';
-import {Datastore, v1} from '../src';
+import {Datastore} from '../src';
 
 describe('Datastore', () => {
   const testKinds: string[] = [];
@@ -35,10 +35,7 @@ describe('Datastore', () => {
   };
 
   const {indexes: declaredIndexes} = yaml.safeLoad(
-    readFileSync(
-      path.join(__dirname, 'data', 'index.yaml'),
-      'utf8',
-    ),
+    readFileSync(path.join(__dirname, 'data', 'index.yaml'), 'utf8')
   );
 
   // TODO/DX ensure indexes before testing, and maybe? cleanup indexes after
@@ -944,7 +941,7 @@ describe('Datastore', () => {
       assert.strictEqual(
         indexes.length,
         declaredIndexes.length,
-        'has indexes per system-test/data/index.yaml',
+        'has indexes per system-test/data/index.yaml'
       );
 
       const [index] = indexes;
@@ -963,7 +960,7 @@ describe('Datastore', () => {
       assert.deepStrictEqual(
         index,
         firstIndex,
-        'asked index is the same as received index',
+        'asked index is the same as received index'
       );
     });
   });

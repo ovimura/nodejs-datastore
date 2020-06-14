@@ -866,7 +866,7 @@ class Datastore extends DatastoreRequest {
 
   listIndexes(filter?: string): Promise<[ListIndexesPage]>;
   listIndexes(options?: ListIndexesOptions): Promise<[ListIndexesPage]>;
-  listIndexes(filter: string, callback: ListIndexesCallback): void
+  listIndexes(filter: string, callback: ListIndexesCallback): void;
   listIndexes(options: ListIndexesOptions, callback: ListIndexesCallback): void;
   listIndexes(callback: ListIndexesCallback): void;
   /**
@@ -886,14 +886,18 @@ class Datastore extends DatastoreRequest {
    * @return {Promise<[ListIndexesPage]> | void}
    */
   listIndexes(
-    optionsOrFilterOrCallback?: ListIndexesOptions | string | ListIndexesCallback,
-    callback?: ListIndexesCallback,
+    optionsOrFilterOrCallback?:
+      | ListIndexesOptions
+      | string
+      | ListIndexesCallback,
+    callback?: ListIndexesCallback
   ): Promise<[ListIndexesPage]> | void {
-    const options: ListIndexesOptions = {...(
-      typeof optionsOrFilterOrCallback === 'string' || typeof optionsOrFilterOrCallback === 'function'
+    const options: ListIndexesOptions = {
+      ...(typeof optionsOrFilterOrCallback === 'string' ||
+      typeof optionsOrFilterOrCallback === 'function'
         ? {}
-        : optionsOrFilterOrCallback
-    )};
+        : optionsOrFilterOrCallback),
+    };
 
     callback =
       typeof optionsOrFilterOrCallback === 'function'
@@ -922,25 +926,38 @@ class Datastore extends DatastoreRequest {
         // FIXME response from gax is one property deep, need to fake it for
         //  future compatibility
         callback!(err, result ? {indexes: result} : undefined);
-      },
+      }
     );
   }
 
   getIndex(indexId: string): Promise<[Index]>;
   getIndex(options: GetIndexOptions): Promise<[Index]>;
-  getIndex(indexId: string, callback: GetIndexCallback): void
+  getIndex(indexId: string, callback: GetIndexCallback): void;
   getIndex(options: GetIndexOptions, callback: GetIndexCallback): void;
+  /**
+   * Describe a specific index by ID.
+   *
+   * This is an administrative command and requires the necessary permissions.
+   *
+   * @example
+   * const {Datastore} = require('@google-cloud/datastore');
+   * const datastore = new Datastore();
+   * const [index] = await datastore.getIndex('CICAgKnr64AZ');
+   *
+   * @param {GetIndexOptions | string | GetIndexCallback} optionsOrIndexIdOrCallback
+   * @param {GetIndexCallback} callback
+   * @return {Promise<[Index]> | void}
+   */
   getIndex(
     optionsOrIndexIdOrCallback?: GetIndexOptions | string | GetIndexCallback,
-    callback?: GetIndexCallback,
+    callback?: GetIndexCallback
   ): Promise<[Index]> | void {
     const options: GetIndexOptions = {
       indexId: '',
-      ...(
-        typeof optionsOrIndexIdOrCallback === 'string' || typeof optionsOrIndexIdOrCallback === 'function'
-          ? {}
-          : optionsOrIndexIdOrCallback
-      )
+      ...(typeof optionsOrIndexIdOrCallback === 'string' ||
+      typeof optionsOrIndexIdOrCallback === 'function'
+        ? {}
+        : optionsOrIndexIdOrCallback),
     };
 
     callback =
@@ -957,6 +974,11 @@ class Datastore extends DatastoreRequest {
       indexId,
     };
 
+    if (!indexId) {
+      callback!(new TypeError('An indexId is required.'));
+      return;
+    }
+
     this.request_(
       {
         client: 'DatastoreAdminClient',
@@ -964,7 +986,7 @@ class Datastore extends DatastoreRequest {
         gaxOpts,
         reqOpts,
       },
-      callback!,
+      callback!
     );
   }
 
@@ -1086,17 +1108,23 @@ export {Datastore};
 /**
  * @name Datastore.v1
  * @see v1.DatastoreClient
+ * @see v1.DatastoreAdminClient
  * @type {object}
  * @property {constructor} DatastoreClient
  *     Reference to {@link v1.DatastoreClient}.
+ * @property {constructor} DatastoreAdminClient
+ *     Reference to {@link v1.DatastoreAdminClient}.
  */
 
 /**
  * @name module:@google-cloud/datastore.v1
  * @see v1.DatastoreClient
+ * @see v1.DatastoreAdminClient
  * @type {object}
  * @property {constructor} DatastoreClient
  *     Reference to {@link v1.DatastoreClient}.
+ * @property {constructor} DatastoreAdminClient
+ *     Reference to {@link v1.DatastoreAdminClient}.
  */
 module.exports.v1 = gapic.v1;
 
