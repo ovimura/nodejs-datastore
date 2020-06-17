@@ -3,23 +3,23 @@
     {
       "git": {
         "name": ".",
-        "remote": "https://github.com/googleapis/nodejs-datastore.git",
-        "sha": "feba866be528785e3b9048eb3cf0f67f121fd4ee"
+        "remote": "git@github.com:googleapis/nodejs-datastore.git",
+        "sha": "efa51155cd30d9eb6d18c932367cc339629db2b2"
       }
     },
     {
       "git": {
         "name": "googleapis",
         "remote": "https://github.com/googleapis/googleapis.git",
-        "sha": "c829fa0bfa725adaf20d82e86cbc1220e3ffd784",
-        "internalRef": "316124477"
+        "sha": "923b983673af7348eb4e517d9e083a5aa69e1101",
+        "internalRef": "316908733"
       }
     },
     {
       "git": {
         "name": "synthtool",
         "remote": "https://github.com/googleapis/synthtool.git",
-        "sha": "e7034945fbdc0e79d3c57f6e299e5c90b0f11469"
+        "sha": "b10590a4a1568548dd13cfcea9aa11d40898144b"
       }
     }
   ],
@@ -28,6 +28,15 @@
       "client": {
         "source": "googleapis",
         "apiName": "datastore",
+        "apiVersion": "v1",
+        "language": "typescript",
+        "generator": "gapic-generator-typescript"
+      }
+    },
+    {
+      "client": {
+        "source": "googleapis",
+        "apiName": "datastore_admin",
         "apiVersion": "v1",
         "language": "typescript",
         "generator": "gapic-generator-typescript"
